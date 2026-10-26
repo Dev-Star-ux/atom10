@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Coding Style and Quality Assurance &mdash; SCRAM 0.16.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/scram.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TODO List for the SCRAM Project" href="todo.html" />
+    <link rel="prev" title="Design Description" href="design_description.html" />
+ 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61330377-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCRAM
+          
+
+          
+            
+            <img src="../_static/scram_logo.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="design_description.html">Design Description</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Coding Style and Quality Assurance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#code-quality">Code Quality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#coding-styles">Coding Styles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#deviations-from-the-gcsg">Deviations from the GCSG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deviations-from-the-qt-style">Deviations from the Qt Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-coding-conventions">Additional Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-code-quality">Monitoring Code Quality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#c">C++</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#targets">Targets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-and-continuous-integration">Testing and Continuous Integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#references-for-testing-and-quality-assurance">References for testing and quality assurance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#version-control-and-versioning">Version control and Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conventions-in-documentation-source-text">Conventions in Documentation “Source Text”</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general">General</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rest-documentation-style">reST Documentation Style</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-code-documentation-style">C++ Code Documentation Style</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#xml-formatting-style">XML Formatting Style</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">TODO List for the SCRAM Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Bugs and Issues</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Analysis</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="event_tree_analysis.html">Event Tree Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fault_tree_analysis.html">Fault Tree Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fta_preprocessing.html">FTA: Preprocessing Techniques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fta_algorithms.html">FTA: Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="probability_analysis.html">Probability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uncertainty_analysis.html">Uncertainty Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common_cause_analysis.html">Common Cause Failure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="substitutions.html">Substitutions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Format</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="input_file.html">Input Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project_file.html">Project Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report_file.html">Report Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opsa_support.html">The Open-PSA Model Exchange Format</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fault_tree_generator.html">Fault Tree Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">GUI Front-End</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellanea</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xml_comments.html">XML File Helper Tools</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SCRAM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Coding Style and Quality Assurance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="coding-style-and-quality-assurance">
+<h1>Coding Style and Quality Assurance<a class="headerlink" href="#coding-style-and-quality-assurance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="code-quality">
+<h2>Code Quality<a class="headerlink" href="#code-quality" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="coding-styles">
+<h3>Coding Styles<a class="headerlink" href="#coding-styles" title="Permalink to this headline">¶</a></h3>
+<p>This project adheres to the following coding styles:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://google.github.io/styleguide/cppguide.html">Google C++ Style Guide (GCSG)</a></p></li>
+<li><p><a class="reference external" href="https://google.github.io/styleguide/pyguide.html">Google Python Style Guide (GPSG)</a></p></li>
+<li><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP 8 – Style Guide for Python Code (PEP8)</a></p></li>
+<li><p><a class="reference external" href="https://community.kde.org/Policies/CMake_Coding_Style">KDE CMake Coding Style</a></p></li>
+<li><p><a class="reference external" href="http://wiki.qt.io/Coding-Conventions">Qt Coding Style</a>, <a class="reference external" href="https://doc-snapshots.qt.io/qtcreator-extending/coding-style.html">Qt Creator Coding Rules</a> for the GUI Development</p></li>
+<li><p><a class="reference external" href="https://google.github.io/styleguide/shell.xml">Google Shell Style Guide</a></p></li>
+</ol>
+<div class="section" id="deviations-from-the-gcsg">
+<h4>Deviations from the GCSG<a class="headerlink" href="#deviations-from-the-gcsg" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">pragma</span> <span class="pre">once</span></code> instead of header guards.</p></li>
+<li><p>Exceptions are allowed.</p></li>
+<li><p>Name mutator functions without <code class="docutils literal notranslate"><span class="pre">set_</span></code> prefix.</p></li>
+<li><p>Multiple <em>implementation</em> inheritance is allowed (mostly for mixins).</p></li>
+<li><p>One-liner <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">statements</span></code> are not allowed.
+It interferes with interactive debugging and
+code coverage analysis tools (may hide uncovered lines).</p></li>
+</ul>
+</div>
+<div class="section" id="deviations-from-the-qt-style">
+<h4>Deviations from the Qt Style<a class="headerlink" href="#deviations-from-the-qt-style" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>80-character line length limit (vs. 100).</p></li>
+<li><p>Exceptions are allowed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">using-directives</span></code> are forbidden.</p></li>
+<li><p>Prefer anonymous <code class="docutils literal notranslate"><span class="pre">namespace</span></code> to <code class="docutils literal notranslate"><span class="pre">static</span></code> keyword.</p></li>
+<li><p>The GCSG style <code class="docutils literal notranslate"><span class="pre">include</span></code> of headers:</p>
+<blockquote>
+<div><ul>
+<li><p>Sections:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Related header (including <code class="docutils literal notranslate"><span class="pre">ui</span></code> header)</p></li>
+<li><p>C-system headers</p></li>
+<li><p>C++ system headers</p></li>
+<li><p>Qt headers</p></li>
+<li><p>Other libraries’ headers</p></li>
+<li><p>Project Core headers</p></li>
+<li><p>Project GUI headers</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Sections are grouped by a blank line.</p></li>
+<li><p>Within each section the includes are ordered alphabetically.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>The GCSG-style <a class="reference external" href="https://google.github.io/styleguide/cppguide.html#Declaration_Order">declaration order</a> in class definition.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">nullptr</span></code> instead of literal <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="additional-coding-conventions">
+<h4>Additional Coding Conventions<a class="headerlink" href="#additional-coding-conventions" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>Use <em>modern C++</em> (C++17).
+Refer to <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines">C++ Core Guidelines</a> for best practices.</p></li>
+<li><p>Do not use <code class="docutils literal notranslate"><span class="pre">inline</span></code>
+when defining a function in a class definition.
+It is implicitly <code class="docutils literal notranslate"><span class="pre">inline</span></code>.
+Do not use <code class="docutils literal notranslate"><span class="pre">inline</span></code> as an optimization hint for the compiler.
+Only reasonable use of <code class="docutils literal notranslate"><span class="pre">inline</span></code> is for the linker to avoid violating the ODR.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">!bool</span></code> vs. <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">==</span> <span class="pre">false</span></code></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Prefer using the negation and implicit conversions to <code class="docutils literal notranslate"><span class="pre">bool</span></code>
+only with Boolean or Boolean-like values
+(<code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">nullptr</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code> for non-existence, etc.).
+An example abuse of the negation and implicit conversion to <code class="docutils literal notranslate"><span class="pre">bool</span></code> would be:</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">checked_div</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">y</span><span class="p">)</span>                      <span class="c1">// Bad. Looks like &#39;if (no y) then fail&#39;.</span>
+        <span class="k">throw</span> <span class="n">domain_error</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>  <span class="c1">// More explicit (y == 0) is better.</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>However, if the expression is long (3 or more parts),
+prefer comparing with the value (<code class="docutils literal notranslate"><span class="pre">false</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, etc.) explicitly for readability:</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">var</span><span class="p">.</span><span class="n">getter</span><span class="p">().</span><span class="n">data</span><span class="p">().</span><span class="n">empty</span><span class="p">()</span> <span class="o">==</span> <span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Avoid inverted or negated logic if possible.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Prefer explicit function to pointer conversion with operator <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>
+instead of implicit decay.</p></li>
+<li><p>Prefer implicit dereference in a function call through a pointer.</p></li>
+</ul>
+<div class="section" id="core-c-code">
+<h5>Core C++ Code<a class="headerlink" href="#core-c-code" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p>Exceptions are forbidden in <strong>analysis code</strong>.</p></li>
+<li><p>RTTI (typeid, dynamic_cast, dynamic_pointer_cast, etc.)
+is forbidden in <strong>analysis code</strong>.</p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=1QhtXRMp3Hg">Defensive Programming</a>.
+Check all preconditions, postconditions, invariants, and assumptions
+with the <code class="docutils literal notranslate"><span class="pre">assert</span></code> macro wherever possible in <strong>analysis code</strong>.
+Consider supplying an error message to clarify the assertion,
+for example, <code class="docutils literal notranslate"><span class="pre">assert(!node-&gt;mark()</span> <span class="pre">&amp;&amp;</span> <span class="pre">&quot;Detected</span> <span class="pre">a</span> <span class="pre">cycle!&quot;)</span></code>.</p></li>
+<li><p>If function input parameters or return values
+are pointers (raw or smart),
+they are never null pointers
+unless explicitly specified.
+Null-based logic must be
+rare, localized, and explicit (consider using <code class="docutils literal notranslate"><span class="pre">std::optional</span></code> instead).</p></li>
+<li><p>Consider supplying a typedef or alias declaration
+for common smart pointers.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ClassNamePtr</span></code> for shared, unique, and intrusive pointers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClassNameWeakPtr</span></code> for weak pointers</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Function call qualification conventions:</p>
+<blockquote>
+<div><ul>
+<li><p>Unqualified calls customizable by or relying on the ADL
+must make it explicit in the documentation and comments.</p></li>
+<li><p>In definitions of member functions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Explicitly qualify calls to inherited non-virtual member functions
+with the corresponding base class names, e.g., <code class="docutils literal notranslate"><span class="pre">BaseClassName::Foo()</span></code>.</p></li>
+<li><p>Qualify virtual functions to be overridden by design as <code class="docutils literal notranslate"><span class="pre">this-&gt;Foo()</span></code>.</p></li>
+<li><p>Qualify a call to a free function with its namespace, e.g., <code class="docutils literal notranslate"><span class="pre">scram::Foo()</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>In definitions of free functions,
+calls to other free functions in the enclosing namespace can be unqualified.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Declare a getter function before a setter function
+for a corresponding member variable.</p></li>
+<li><p>Declare getter and setter functions before other complex member functions.</p></li>
+<li><p>Domain-specific <code class="docutils literal notranslate"><span class="pre">Probability</span></code> naming rules:</p>
+<blockquote>
+<div><ul>
+<li><p>If a probability variable is a member variable of a class,
+abbreviate it to <code class="docutils literal notranslate"><span class="pre">p_</span></code>.
+Its getter/setter functions should have
+corresponding names, i.e., <code class="docutils literal notranslate"><span class="pre">p()</span></code> and <code class="docutils literal notranslate"><span class="pre">p(double</span> <span class="pre">value)</span></code>.
+Append extra description after <code class="docutils literal notranslate"><span class="pre">p_</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">p_total_</span></code> (a la Semantic Hungarian).
+Avoid abbreviating the name to <code class="docutils literal notranslate"><span class="pre">prob</span></code>
+or fully spelling it to <code class="docutils literal notranslate"><span class="pre">probability</span></code>.</p></li>
+<li><p>For non-member probability variables:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Prefer prefixing with <code class="docutils literal notranslate"><span class="pre">p_</span></code> (a la Semantic Hungarian)
+if the name has more description to the probability value, e.g., <code class="docutils literal notranslate"><span class="pre">p_not_event</span></code>.</p></li>
+<li><p>Prefer <code class="docutils literal notranslate"><span class="pre">prob</span></code> abbreviation
+for single word names indicating general probability values.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Prefer spelling <code class="docutils literal notranslate"><span class="pre">Probability</span></code> fully for cases not covered above
+(class/function/namespace/typedef/…), e.g., <code class="docutils literal notranslate"><span class="pre">CalculateProbability</span></code>.
+Avoid abbreviating the name, e.g., <code class="docutils literal notranslate"><span class="pre">CalculateProb</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>In <strong>analysis code</strong>, prefer the terminology and concepts of Boolean algebra, graph theory, sets
+(i.e., the solution domain)
+to the terminology and concepts of risk analysis (i.e., the problem domain).</p></li>
+<li><p>In performance-critical <strong>analysis code</strong>
+(BDD variable ordering, Boolean formula rewriting/preprocessing, etc.),
+avoid platform/implementation-dependent constructs
+(iterating over unordered containers, unstable sorts,
+using an object address as its identity, etc.).
+The performance profile must be stable across platforms.</p></li>
+</ul>
+</div>
+<div class="section" id="gui-code">
+<h5>GUI Code<a class="headerlink" href="#gui-code" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li><p>Avoid Qt containers whenever possible.
+Prefer STL/Boost containers and constructs.</p></li>
+<li><p>Upon using Qt containers and constructs,
+stick to their STL API and usage style
+as much as possible.
+Avoid the Java-style API.</p></li>
+<li><p>Upon using Qt specialized containers (e.g., <code class="docutils literal notranslate"><span class="pre">QStringList</span></code>),
+do not use a single-element constructor (e.g., <code class="docutils literal notranslate"><span class="pre">QStringList(QString)</span></code>).
+Use the initializer list instead.</p></li>
+<li><p>Avoid default arguments in signals and slots.</p></li>
+<li><p>Prefer Qt Designer UI forms over hand-coded GUI.</p></li>
+<li><p>Common Qt includes may be omitted,
+for example, <code class="docutils literal notranslate"><span class="pre">QString</span></code>, <code class="docutils literal notranslate"><span class="pre">QList</span></code>, <code class="docutils literal notranslate"><span class="pre">QStringList</span></code>, and <code class="docutils literal notranslate"><span class="pre">QDir</span></code>.</p></li>
+<li><p>Avoid using forward declaration of Qt library classes.
+Just include the needed headers.</p></li>
+<li><p>Avoid <code class="docutils literal notranslate"><span class="pre">qobject_cast</span></code> and its flavors.
+Avoid the RTTI in general.</p></li>
+<li><p>Automatic (implicit) connection of signals and slots is forbidden.</p></li>
+<li><p>Avoid using unqualified <code class="docutils literal notranslate"><span class="pre">tr()</span></code> calls.
+Qt Linguist automatic context deduction is flaky
+and often fails with modern C++ code.
+<code class="docutils literal notranslate"><span class="pre">_()</span></code> (a-la <code class="docutils literal notranslate"><span class="pre">gettext</span></code>) is provided to always resolve
+the context to <code class="docutils literal notranslate"><span class="pre">QObject::tr()</span></code> (the common case).
+Add extra translation/disambiguation context as needed (the rare case).</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="monitoring-code-quality">
+<h3>Monitoring Code Quality<a class="headerlink" href="#monitoring-code-quality" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="c">
+<h4>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Performance profiling with Gprof, <a class="reference external" href="http://valgrind.org/">Valgrind</a>, and <code class="docutils literal notranslate"><span class="pre">perf</span></code></p></li>
+<li><p>Code coverage check with <a class="reference external" href="https://gcc.gnu.org/onlinedocs/gcc/Gcov.html">Gcov</a> and reporting with <a class="reference external" href="https://codecov.io/github/rakhimov/scram">Codecov</a></p></li>
+<li><p>Memory management bugs and leaks with <a class="reference external" href="http://valgrind.org/">Valgrind</a></p></li>
+<li><p>Static code analysis with <a class="reference external" href="https://scan.coverity.com/projects/2555">Coverity</a> and <a class="reference external" href="https://github.com/danmar/cppcheck/">CppCheck</a></p></li>
+<li><p>Cyclomatic complexity analysis with <a class="reference external" href="https://github.com/terryyin/lizard">Lizard</a></p></li>
+<li><p>Google style conformance check with <a class="reference external" href="https://github.com/cpplint/cpplint">Cpplint</a></p></li>
+<li><p>Common C++ code problem check with <a class="reference external" href="https://github.com/myint/cppclean">cppclean</a></p></li>
+<li><p>Consistent code formatting with <a class="reference external" href="http://clang.llvm.org/docs/ClangFormat.html">ClangFormat</a></p></li>
+<li><p>Component dependency analysis with <a class="reference external" href="https://pypi.python.org/pypi/cppdep">cppdep</a></p></li>
+</ol>
+</div>
+<div class="section" id="python">
+<h4>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Code quality and style check with <a class="reference external" href="https://www.pylint.org/">Pylint</a></p></li>
+<li><p>Profiling with <a class="reference external" href="http://www.pyvmmonitor.com/">PyVmMonitor</a></p></li>
+<li><p>Code coverage check with <a class="reference external" href="https://coverage.readthedocs.io/en/latest/">coverage</a> and reporting with <a class="reference external" href="https://codecov.io/github/rakhimov/scram">Codecov</a></p></li>
+<li><p>Continuous code quality control on <a class="reference external" href="https://codacy.com/">Codacy</a> with <a class="reference external" href="https://github.com/PyCQA/prospector">Prospector</a></p></li>
+<li><p>Consistent code formatting with <a class="reference external" href="https://github.com/google/yapf">YAPF</a></p></li>
+</ol>
+</div>
+<div class="section" id="targets">
+<h4>Targets<a class="headerlink" href="#targets" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 32%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Before Release</p></th>
+<th class="head"><p>On Release</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>C++ Code Coverage</p></td>
+<td><p>80%</p></td>
+<td><p>95%</p></td>
+</tr>
+<tr class="row-odd"><td><p>C++ Defect Density</p></td>
+<td><p>0.5 per 1000 SLOC</p></td>
+<td><p>0.35 per 1000 SLOC</p></td>
+</tr>
+<tr class="row-even"><td><p>CCN</p></td>
+<td><p>15</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python Code Coverage</p></td>
+<td><p>80%</p></td>
+<td><p>95%</p></td>
+</tr>
+<tr class="row-even"><td><p>Pylint Score</p></td>
+<td><p>9.0</p></td>
+<td><p>9.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Documentation</p></td>
+<td><p>Full</p></td>
+<td><p>Full</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>C++ defects that count towards the defect density include
+analysis errors, Coverity report, memory leaks,
+and <em>known</em> critical bugs.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Utility scripts written in Python are exempt from the test coverage requirement.</p>
+</div>
+</div>
+</div>
+<div class="section" id="testing-and-continuous-integration">
+<h3>Testing and Continuous Integration<a class="headerlink" href="#testing-and-continuous-integration" title="Permalink to this headline">¶</a></h3>
+<p>In order to facilitate better software quality and quality assurance,
+full test coverage is attempted
+through unit, integration, regression, and benchmarking tests.
+The following tools are used for this purpose:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/catchorg/Catch2">Catch2</a></p></li>
+<li><p><a class="reference external" href="http://doc.qt.io/qt-5/qtest-overview.html">Qt Test</a></p></li>
+<li><p><a class="reference external" href="https://pytest.org">Pytest</a></p></li>
+</ul>
+<p>These tests are automated,
+and continuous integration is provided by <a class="reference external" href="https://travis-ci.org/rakhimov/scram">Travis CI</a> and <a class="reference external" href="https://ci.appveyor.com/project/rakhimov/scram">AppVeyor</a>.</p>
+<p>Guided fuzz testing is performed
+with auto-generated analysis input files
+to discover bugs, bottlenecks, and assumption failures.</p>
+<div class="section" id="references-for-testing-and-quality-assurance">
+<h4>References for testing and quality assurance<a class="headerlink" href="#references-for-testing-and-quality-assurance" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wiki.qt.io/Writing_Unit_Tests">Writing Unit Tests (Qt GUI)</a></p></li>
+<li><p><a class="reference external" href="http://softwaretestingfundamentals.com/">Software Testing Fundamentals</a></p></li>
+<li><p><a class="reference external" href="http://www.tutorialspoint.com/software_testing/">Software Testing Tutorial</a></p></li>
+<li><p><a class="reference external" href="http://softwaretestingstandard.org/">ISO Standards for Software Testing</a></p></li>
+<li><p><a class="reference external" href="http://agiledata.org/essays/tdd.html">Introduction to Test Driven Development</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-control-and-versioning">
+<h3>Version control and Versioning<a class="headerlink" href="#version-control-and-versioning" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://git-scm.com/">Git SCM</a></p></li>
+<li><p><a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">Branching Model</a></p></li>
+<li><p><a class="reference external" href="https://github.com/erlang/otp/wiki/Writing-good-commit-messages">Writing Good Commit Messages</a></p></li>
+<li><p><a class="reference external" href="http://who-t.blogspot.com/2009/12/on-commit-messages.html">On Commit Messages</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Atomic_commit#Atomic_commit_convention">Atomic Commit</a></p></li>
+<li><p><a class="reference external" href="http://semver.org/">Semantic Versioning</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<img alt="http://www.osnews.com/images/comics/wtfm.jpg" class="align-center" src="http://www.osnews.com/images/comics/wtfm.jpg" />
+<p>Good documentation of the code and functionality is
+the requirement for maintainability and evolution of the project.</p>
+<p>The project adheres to the Documentation Driven Development model (<a class="reference external" href="http://pyvideo.org/video/441/pycon-2011--documentation-driven-development">DDD talk by Corey Oordt</a>),
+following the best practices of <a class="reference external" href="http://www.agilemodeling.com/essays/agileDocumentationBestPractices.htm">Agile Documentation</a>,
+Google Documentation Guide <a class="reference external" href="https://github.com/google/styleguide/blob/gh-pages/docguide/philosophy.md">Philosophy</a> and <a class="reference external" href="https://github.com/google/styleguide/blob/gh-pages/docguide/best_practices.md">Best Practices</a>.</p>
+<p>The documentation for the project is maintained in the <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> format,
+and the final representations are dynamically generated with <a class="reference external" href="http://sphinx-doc.org/">Sphinx</a>
+in various formats (html, pdf, LaTeX).</p>
+<p>The code documentation is dynamically generated with <a class="reference external" href="http://doxygen.org/">Doxygen</a>,
+which also verifies full documentation coverage.</p>
+<p>The source text of the documentation in the code and the reST format
+must be formatted consistently and with <a class="reference external" href="http://rhodesmill.org/brandon/2012/one-sentence-per-line/">Semantic Linefeeds</a>
+for maintainability and version control.</p>
+<div class="section" id="conventions-in-documentation-source-text">
+<h3>Conventions in Documentation “Source Text”<a class="headerlink" href="#conventions-in-documentation-source-text" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="general">
+<h4>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Prefer the <a class="reference internal" href="input_file.html#aralia-format"><span class="std std-ref">Aralia Input Format</span></a> for the Boolean formula documentation.
+This format uses the C-style bit-wise logical operators for formulas.</p></li>
+</ul>
+</div>
+<div class="section" id="rest-documentation-style">
+<h4>reST Documentation Style<a class="headerlink" href="#rest-documentation-style" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Semantic Linefeeds</p></li>
+<li><p>Two blank lines between sections with bodies</p></li>
+<li><p>One blank line after a header before its body</p></li>
+<li><p>Part <code class="docutils literal notranslate"><span class="pre">#</span></code> overlined and underlined</p></li>
+<li><p>Chapter <code class="docutils literal notranslate"><span class="pre">*</span></code> overlined and underlined</p></li>
+<li><p>Section underlining and order <code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">^</span></code>, <code class="docutils literal notranslate"><span class="pre">+</span></code></p></li>
+<li><p>Point nesting and order <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">+</span></code></p></li>
+<li><p>4-space indentation</p></li>
+<li><p>100 character line limit
+(except for links and paths)</p></li>
+<li><p>No trailing whitespace characters</p></li>
+<li><p>No tabs (spaces only)</p></li>
+<li><p>No excessive blank lines at the end of files</p></li>
+</ul>
+</div>
+<div class="section" id="c-code-documentation-style">
+<h4>C++ Code Documentation Style<a class="headerlink" href="#c-code-documentation-style" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>Semantic Linefeeds</p></li>
+<li><p>Doxygen comments with <code class="docutils literal notranslate"><span class="pre">///</span></code> and <code class="docutils literal notranslate"><span class="pre">///&lt;</span></code></p></li>
+<li><p>Comment ordering:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>description</p></li>
+<li><p>tparam</p></li>
+<li><p>param</p></li>
+<li><p>returns</p></li>
+<li><p>pre</p></li>
+<li><p>post</p></li>
+<li><p>throws</p></li>
+<li><p>note</p></li>
+<li><p>warning</p></li>
+<li><p>todo</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Leave one Doxygen blank line between sections</p></li>
+<li><p>Always specify input and output parameters with
+<code class="docutils literal notranslate"><span class="pre">&#64;param[in,out]</span> <span class="pre">arg</span>&#160; <span class="pre">Description...</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Two spaces between parameter and its description</p></li>
+<li><p>The same formatting for template parameters <code class="docutils literal notranslate"><span class="pre">&#64;tparam</span> <span class="pre">T</span>&#160; <span class="pre">Type</span> <span class="pre">desc...</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>The two-space formatting for <code class="docutils literal notranslate"><span class="pre">&#64;throws</span> <span class="pre">Error</span>&#160; <span class="pre">Description</span></code></p></li>
+<li><p>In-code TODOs with Doxygen <code class="docutils literal notranslate"><span class="pre">///</span> <span class="pre">&#64;todo</span></code>
+so that Doxygen picks them up.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="xml-formatting-style">
+<h2>XML Formatting Style<a class="headerlink" href="#xml-formatting-style" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>2-space indentation</p></li>
+<li><p>No tabs (spaces only)</p></li>
+<li><p>No trailing whitespace characters</p></li>
+<li><p>No excessive blank lines</p></li>
+<li><p>No spaces around tag opening and closing brackets: <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">/&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;\</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>.</p></li>
+<li><p>Only one space between attributes</p></li>
+<li><p>No spaces around <code class="docutils literal notranslate"><span class="pre">=</span></code> in attribute value assignment</p></li>
+<li><p>Prefer 100 character line limit</p></li>
+<li><p>Avoid putting several elements on the same line</p></li>
+<li><p>UTF-8 encoding</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="todo.html" class="btn btn-neutral float-right" title="TODO List for the SCRAM Project" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="design_description.html" class="btn btn-neutral float-left" title="Design Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2018, Olzhas Rakhimov, CC BY-SA 4.0
+      <span class="lastupdated">
+        Last updated on Oct 14, 2021.
+      </span>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-61330377-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

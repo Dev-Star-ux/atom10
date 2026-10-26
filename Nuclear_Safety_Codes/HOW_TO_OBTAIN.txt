@@ -1,0 +1,28 @@
+RiskSpectrum PSA, the RiskSpectrum risk-and-reliability suite, MELCOR, and SAPHIRE are licensed nuclear-safety programs. The installers are not public, so they are not in this folder.
+
+RiskSpectrum PSA
+  Commercial PSA code. Lloyd's Register sold the product line to Total Specific Solutions in 2022. It is now sold as RiskSpectrum.
+  Product page: https://www.riskspectrum.com/riskspectrum-psa
+  Registered downloads: https://downloads.riskspectrum.com/RiskSpectrumPSA/
+  Registration: https://downloads.riskspectrum.com/RiskSpectrumPSA/Register.aspx
+  Support: support@riskspectrum.com
+
+Risk and reliability software
+  That name is the RiskSpectrum product family (PSA, plus the related risk, reliability, and availability tools on riskspectrum.com). It is the same vendor as RiskSpectrum PSA, not a separate free program.
+  Family page: https://www.riskspectrum.com/
+
+  The U.S. NRC counterpart for fault-tree and event-tree PRA is SAPHIRE, from Idaho National Laboratory. The executable also requires an NRC agreement. The public NUREG/CR-7039 manuals are in SAPHIRE_public_manuals.
+  Request the code: email safetycodes@nrc.gov
+  NRC page: https://www.nrc.gov/about-nrc/regulatory/research/obtainingcodes
+
+MELCOR
+  Sandia severe-accident code for the NRC. The executable is distributed only after an NRC non-disclosure agreement, then a Sandia download login and a per-computer license.
+  Domestic organizations: email a signed NDA to safetycodes@nrc.gov. After NRC and Sandia approval, the code is downloaded from https://snltransfer.sandia.gov. License keys go to MLR@sandia.gov.
+  Distribution page: https://www.sandia.gov/MELCOR/code-distribution/
+  NRC obtaining-codes page: https://www.nrc.gov/about-nrc/regulatory/research/obtainingcodes
+  The public MELCOR 2.2 r2023.0 manuals are in MELCOR_public_manuals. Those PDFs are the user and reference manuals, not the program.
+
+What is in this folder
+  SCRAM: GPLv3 open-source PRA solver from https://github.com/SCRAM-NG/scram (release 0.17.0). This is a fault-tree and event-tree tool you can run without an NRC or RiskSpectrum license. Documentation: https://scram-pra.org/
+  SAPHIRE_public_manuals: NUREG/CR-7039 Volumes 1-7, public NRC PDFs.
+  MELCOR_public_manuals: public NRC PDFs of the MELCOR 2.2 r2023.0 primer, user's guide, and reference manual.
